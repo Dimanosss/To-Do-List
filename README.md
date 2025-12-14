@@ -1,4 +1,4 @@
-#Authors Rakovetskyi Dmytro and Travinskyi Stanislav
+## Authors Rakovetskyi Dmytro and Travinskyi Stanislav
 
 # Angular To-Do List
 
