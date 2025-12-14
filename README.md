@@ -1,3 +1,5 @@
+#Authors Rakovetskyi Dmytro and Travinskyi Stanislav
+
 # Angular To-Do List
 
 Angular To-Do List application with LocalStorage for data persistence.
