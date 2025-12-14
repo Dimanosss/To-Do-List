@@ -1,0 +1,113 @@
+<div class="todo-container">
+  <h1>Todo List</h1>
+
+  <!-- Add Todo Form -->
+  <div class="add-todo-section">
+    <input
+      type="text"
+      [(ngModel)]="newTodoTitle"
+      (keyup.enter)="addTodo()"
+      placeholder="Add a new task..."
+      class="todo-input"
+    />
+    <button (click)="addTodo()" class="btn-add">Add Task</button>
+  </div>
+
+  <!-- Filter Buttons -->
+  <div class="filter-section">
+    <button
+      (click)="setFilter('all')"
+      [class.active]="isFilterActive('all')"
+      class="filter-btn"
+    >
+      All
+    </button>
+    <button
+      (click)="setFilter('active')"
+      [class.active]="isFilterActive('active')"
+      class="filter-btn"
+    >
+      Active
+    </button>
+    <button
+      (click)="setFilter('completed')"
+      [class.active]="isFilterActive('completed')"
+      class="filter-btn"
+    >
+      Completed
+    </button>
+  </div>
+
+  <!-- Todo List -->
+  <div class="todo-list">
+    <div *ngIf="filteredTodos.length === 0" class="empty-message">
+      No tasks found.
+    </div>
+    <div
+      *ngFor="let todo of filteredTodos"
+      class="todo-item"
+      [class.completed]="todo.completed"
+    >
+      <!-- Checkbox for completion -->
+      <input
+        type="checkbox"
+        [checked]="todo.completed"
+        (change)="toggleTodo(todo.id)"
+        class="todo-checkbox"
+      />
+
+      <!-- Todo Title (Display or Edit Mode) -->
+      <div class="todo-content">
+        <span *ngIf="editingId !== todo.id" class="todo-title">
+          {{ todo.title }}
+        </span>
+        <div *ngIf="editingId === todo.id" class="edit-mode">
+          <input
+            type="text"
+            [(ngModel)]="editTitle"
+            (keyup.enter)="saveEdit(todo.id)"
+            (keyup.escape)="cancelEdit()"
+            class="edit-input"
+            #editInput
+          />
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="todo-actions">
+        <button
+          *ngIf="editingId !== todo.id"
+          (click)="startEdit(todo)"
+          class="btn-action btn-edit"
+          title="Edit task"
+        >
+          <img src="assets/edit.png" alt="Edit" />
+        </button>
+        <button
+          *ngIf="editingId === todo.id"
+          (click)="saveEdit(todo.id)"
+          class="btn-action btn-save"
+          title="Save changes"
+        >
+          <img src="assets/check.png" alt="Save" />
+        </button>
+        <button
+          *ngIf="editingId === todo.id"
+          (click)="cancelEdit()"
+          class="btn-action btn-cancel"
+          title="Cancel editing"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="deleteTodo(todo.id)"
+          class="btn-action btn-delete"
+          title="Delete task"
+        >
+          <img src="assets/delete.png" alt="Delete" />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
